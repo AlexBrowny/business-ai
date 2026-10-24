@@ -3,16 +3,15 @@
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 
-const NeuralCore = dynamic(() => import("./NeuralCore"), { ssr: false });
+const AnimeHead = dynamic(() => import("./AnimeHead"), { ssr: false });
 
 type Mode = "pending" | "3d" | "static";
 
-/** Слабое устройство, узкий экран или просьба системы уменьшить анимации */
+/** Слабое устройство или просьба системы уменьшить анимации */
 function shouldUseStatic(): boolean {
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const narrow = window.matchMedia("(max-width: 767px)").matches;
   const lowEnd = (navigator.hardwareConcurrency ?? 8) <= 2;
-  return reduced || narrow || lowEnd;
+  return reduced || lowEnd;
 }
 
 /** Лёгкая замена 3D: CSS-шар с градиентом и орбитами. */
@@ -55,7 +54,7 @@ export function HeroScene() {
 
   return (
     <div ref={box} className="absolute inset-0">
-      {mode === "3d" && <NeuralCore active={visible} />}
+      {mode === "3d" && <AnimeHead active={visible} />}
       {mode !== "3d" && <StaticOrb />}
     </div>
   );
