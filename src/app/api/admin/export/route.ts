@@ -11,7 +11,7 @@ const cell = (v: string | number) => {
 
 export async function GET() {
   const header = ["id", "created_at", "name", "contact", "message", "source", "status", "note", "answers"];
-  const rows = listLeads().map((l) =>
+  const rows = (await listLeads()).map((l) =>
     [l.id, l.created_at, l.name, l.contact, l.message, l.source, l.status, l.note, JSON.stringify(l.answers)]
       .map(cell)
       .join(","),

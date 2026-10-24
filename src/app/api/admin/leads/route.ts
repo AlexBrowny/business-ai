@@ -15,5 +15,6 @@ export async function GET(req: Request) {
   for (const k of Object.keys(params)) if (params[k] === "") delete params[k];
   const parsed = querySchema.safeParse(params);
   if (!parsed.success) return NextResponse.json({ error: "Bad filter" }, { status: 400 });
-  return NextResponse.json({ leads: listLeads(parsed.data), stats: leadStats() });
+  const [leads, stats] = await Promise.all([listLeads(parsed.data), leadStats()]);
+  return NextResponse.json({ leads, stats });
 }

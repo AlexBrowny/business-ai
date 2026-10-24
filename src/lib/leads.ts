@@ -22,7 +22,7 @@ export const leadSchema = z.object({
 export type LeadInput = z.infer<typeof leadSchema>;
 
 export async function createLead(input: LeadInput): Promise<Lead> {
-  const lead = insertLead({
+  const lead = await insertLead({
     name: input.name,
     contact: input.contact,
     message: input.message,
@@ -32,5 +32,5 @@ export async function createLead(input: LeadInput): Promise<Lead> {
   });
   // Сбой Telegram не должен терять заявку: она уже в базе.
   const tg_status = await sendLeadToTelegram(lead);
-  return updateLead(lead.id, { tg_status }) ?? lead;
+  return (await updateLead(lead.id, { tg_status })) ?? lead;
 }
