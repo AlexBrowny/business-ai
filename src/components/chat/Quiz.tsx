@@ -3,10 +3,12 @@
 import { useState, type FormEvent } from "react";
 import { motion } from "framer-motion";
 import { quizSteps } from "@/content/site";
+import { scrollToTop } from "@/components/fx/BackToTop";
 
 interface QuizProps {
   summary: string;
   onBack: () => void;
+  onClose: () => void;
 }
 
 type Phase = "steps" | "contact" | "sending" | "done" | "error";
@@ -14,7 +16,7 @@ type Phase = "steps" | "contact" | "sending" | "done" | "error";
 const input =
   "w-full rounded-xl border border-line bg-foreground/5 px-4 py-3 text-sm outline-none focus:border-brand";
 
-export function Quiz({ summary, onBack }: QuizProps) {
+export function Quiz({ summary, onBack, onClose }: QuizProps) {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [phase, setPhase] = useState<Phase>("steps");
@@ -58,6 +60,15 @@ export function Quiz({ summary, onBack }: QuizProps) {
         <div className="text-5xl">✅</div>
         <p className="font-display mt-4 text-lg font-semibold">Заявка принята!</p>
         <p className="mt-2 text-sm text-muted">Менеджер свяжется с вами и пришлёт расчёт.</p>
+        <button
+          onClick={() => {
+            onClose();
+            scrollToTop();
+          }}
+          className="mt-5 rounded-full bg-gradient-to-r from-brand to-brand-3 px-6 py-2.5 text-sm font-semibold text-white"
+        >
+          На главную
+        </button>
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import { SmoothScroll } from "@/components/fx/SmoothScroll";
 import { ScrollProgress } from "@/components/fx/ScrollProgress";
 import { SectionDivider } from "@/components/fx/SectionDivider";
+import { BackToTop } from "@/components/fx/BackToTop";
 import { ChatWidget } from "@/components/chat/ChatWidget";
 import { Hero } from "@/components/sections/Hero";
 import { Stats } from "@/components/sections/Stats";
@@ -29,6 +30,7 @@ export default function Home() {
       <LeadForm />
       <Footer />
       <ChatWidget />
+      <BackToTop />
     </main>
   );
 }

@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import { Reveal } from "@/components/fx/Reveal";
 import { Parallax } from "@/components/fx/Parallax";
 import { openChat } from "@/components/chat/events";
+import { scrollToTop } from "@/components/fx/BackToTop";
 
 type Status = "idle" | "sending" | "done" | "error";
 
@@ -61,9 +62,17 @@ export function LeadForm() {
                 <div className="text-5xl">🎉</div>
                 <h3 className="font-display mt-4 text-2xl font-semibold">Заявка отправлена!</h3>
                 <p className="mt-2 text-muted">Мы свяжемся с вами в ближайшее время.</p>
-                <button onClick={() => setStatus("idle")} className="mt-6 text-sm text-brand-2 underline">
-                  Отправить ещё одну
-                </button>
+                <div className="mt-6 flex flex-col items-center gap-3">
+                  <button
+                    onClick={scrollToTop}
+                    className="rounded-full bg-gradient-to-r from-brand to-brand-3 px-7 py-3 text-sm font-semibold text-white"
+                  >
+                    На главную
+                  </button>
+                  <button onClick={() => setStatus("idle")} className="text-sm text-brand-2 underline">
+                    Отправить ещё одну
+                  </button>
+                </div>
               </div>
             ) : (
               <form onSubmit={onSubmit} className="space-y-4" noValidate>

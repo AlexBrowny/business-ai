@@ -158,7 +158,7 @@ export function ChatWidget() {
                   )}
                 </>
               ) : (
-                <Quiz summary={summary} onBack={() => setMode("chat")} />
+                <Quiz summary={summary} onBack={() => setMode("chat")} onClose={() => setOpen(false)} />
               )}
             </div>
 
